@@ -1,0 +1,55 @@
+#pragma once
+
+// The numeric version format is AAAAABBBBBCCCCCDDDE where:
+//
+// AAAAA - major version number
+// BBBBB - minor version number
+// CCCCC - bugfix version number
+// DDD   - alpha / beta (DDD + 500) version number
+// E     - final (0) / snapshot (1)
+//
+// When DDDE is not 0, 1 is subtracted from AAAAABBBBBCCCCC. For example:
+//
+// Version      AAAAABBBBBCCCCCDDDE
+//
+// 0.1.0        0000000001000000000
+// 0.1.2        0000000001000020000
+// 1.2.3        0000100002000030000
+// 2.2.0-a.1    0000200001999990010
+// 3.0.0-b.2    0000299999999995020
+// 2.2.0-a.1.z  0000200001999990011
+//
+#define SANDBOX_VERSION       $libsandbox.version.project_number$ULL
+#define SANDBOX_VERSION_STR   "$libsandbox.version.project$"
+#define SANDBOX_VERSION_ID    "$libsandbox.version.project_id$"
+#define SANDBOX_VERSION_FULL  "$libsandbox.version$"
+
+#define SANDBOX_VERSION_MAJOR $libsandbox.version.major$
+#define SANDBOX_VERSION_MINOR $libsandbox.version.minor$
+#define SANDBOX_VERSION_PATCH $libsandbox.version.patch$
+
+#define SANDBOX_PRE_RELEASE   $libsandbox.version.pre_release$
+
+#define SANDBOX_SNAPSHOT_SN   $libsandbox.version.snapshot_sn$ULL
+#define SANDBOX_SNAPSHOT_ID   "$libsandbox.version.snapshot_id$"
+
+// For convenience, the above macros can be accessed in a type-safe way
+// by the following inlined constexpr variables in the 'version' namespace.
+//
+namespace sandbox::version {
+
+inline constexpr auto number = SANDBOX_VERSION;
+inline constexpr auto string = SANDBOX_VERSION_STR;
+inline constexpr auto id     = SANDBOX_VERSION_ID;
+inline constexpr auto full   = SANDBOX_VERSION_FULL;
+
+inline constexpr auto major = SANDBOX_VERSION_MAJOR;
+inline constexpr auto minor = SANDBOX_VERSION_MINOR;
+inline constexpr auto patch = SANDBOX_VERSION_PATCH;
+
+inline constexpr auto pre_release = SANDBOX_PRE_RELEASE;
+
+inline constexpr auto snapshot_sn = SANDBOX_SNAPSHOT_SN;
+inline constexpr auto snapshot_id = SANDBOX_SNAPSHOT_ID;
+
+}  // namespace xstd::version

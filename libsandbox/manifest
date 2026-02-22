@@ -1,0 +1,19 @@
+: 1
+name: libsandbox
+version: 0.1.0-a.0.z
+type: lib
+language: c++
+project: sandbox-cpp
+summary: C++ library to prototype scriptable graphics demos
+license: GPL-3.0-or-later ; GNU General Public License v3.0 or later.
+
+# topics: first topic, second topic
+# keywords: first second third
+
+url: https://github.com/lyrahgames/sandbox-cpp
+email: lyrahgames@mailbox.org
+
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0
+
+depends: libxstd

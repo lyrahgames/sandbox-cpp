@@ -1,0 +1,52 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+import intf_libs += libxstd%lib{xstd}
+
+# Library Sources
+#
+lib{sandbox}: \
+  sandbox/{hxx ixx txx cxx}{** -version} sandbox/hxx{version} \
+  $impl_libs $intf_libs
+
+# Version Header
+#
+sandbox/hxx{version}: sandbox/in{version} $src_root/manifest
+
+# Build Options
+#
+out_pfx = [dir_path] $out_root/sources/
+src_pfx = [dir_path] $src_root/sources/
+
+cxx.poptions =+ "-I$out_pfx" "-I$src_pfx"
+
+obja{*}: cxx.poptions += -DSANDBOX_STATIC_BUILD
+objs{*}: cxx.poptions += -DSANDBOX_SHARED_BUILD
+
+# Export Options
+#
+lib{sandbox}:
+{
+  cxx.export.poptions = "-I$out_pfx" "-I$src_pfx"
+  cxx.export.libs = $intf_libs
+}
+
+liba{sandbox}: cxx.export.poptions += -DSANDBOX_STATIC
+libs{sandbox}: cxx.export.poptions += -DSANDBOX_SHARED
+
+# For pre-releases use the complete version to make sure they cannot
+# be used in place of another pre-release or the final version. See
+# the version module for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{sandbox}: bin.lib.version = "-$version.project_id"
+else
+  lib{sandbox}: bin.lib.version = "-$version.major.$version.minor"
+
+# Installation
+#
+lib{xstd}: cxx.pkgconfig.include = include/sandbox-cpp/
+{hxx ixx txx}{*}:
+{
+  install         = include/sandbox-cpp/
+  install.subdirs = true
+}
