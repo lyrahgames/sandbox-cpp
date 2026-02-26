@@ -1,4 +1,5 @@
 cxx.std = latest
+cxx.features.modules = true
 
 using cxx
 

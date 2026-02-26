@@ -1,35 +1,19 @@
-#include <sstream>
-#include <stdexcept>
+import std;
+import sandbox;
 
-#include <sandbox/version.hpp>
-#include <sandbox/sandbox.hpp>
+using namespace std::literals;
+using namespace sandbox;
 
-#undef NDEBUG
-#include <cassert>
-
-int main ()
-{
-  using namespace std;
-  using namespace sandbox;
-
-  // Basics.
-  //
-  {
-    ostringstream o;
-    say_hello (o, "World");
-    assert (o.str () == "Hello, World!\n");
-  }
-
-  // Empty name.
-  //
-  try
-  {
-    ostringstream o;
-    say_hello (o, "");
-    assert (false);
-  }
-  catch (const invalid_argument& e)
-  {
-    assert (e.what () == string ("empty name"));
-  }
+int main() {
+  std::jthread thread{[](std::stop_token internal) {
+    while (not internal.stop_requested()) {
+      std::this_thread::sleep_for(1s);
+      std::println("tick");
+    }
+  }};
+  std::stop_callback external{app::stop_token(),
+                              [&] { thread.request_stop(); }};
+  std::println("version = {}", sandbox::version::full);
+  std::this_thread::sleep_for(5s);
+  app::quit();
 }

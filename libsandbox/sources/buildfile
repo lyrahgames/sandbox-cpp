@@ -1,11 +1,12 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 import intf_libs += libxstd%lib{xstd}
+import intf_libs += sol2%lib{sol2}
 
 # Library Sources
 #
 lib{sandbox}: \
-  sandbox/{hxx ixx txx cxx}{** -version} sandbox/hxx{version} \
+  sandbox/{hxx ixx txx cxx}{** -version} sandbox/mxx{**} sandbox/hxx{version} \
   $impl_libs $intf_libs
 
 # Version Header
@@ -45,7 +46,7 @@ else
 # Installation
 #
 lib{xstd}: cxx.pkgconfig.include = include/sandbox-cpp/
-{hxx ixx txx}{*}:
+{hxx ixx txx mxx}{*}:
 {
   install         = include/sandbox-cpp/
   install.subdirs = true

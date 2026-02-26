@@ -17,3 +17,5 @@ depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
 
 depends: libxstd
+
+depends: sol2 ^3.5.0

@@ -3,6 +3,7 @@
 #cxx.internal.scope = current
 
 cxx.std = latest
+cxx.features.modules = true
 
 using cxx
 
@@ -10,6 +11,7 @@ hxx{*}: extension = hpp
 ixx{*}: extension = ipp
 txx{*}: extension = tpp
 cxx{*}: extension = cpp
+mxx{*}: extension = mpp
 
 # The test target for cross-testing (running tests under Wine, etc).
 #
