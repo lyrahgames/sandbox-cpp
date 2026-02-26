@@ -1,0 +1,31 @@
+module;
+#include <sandbox/export.hpp>
+
+export module sandbox.application;
+
+import std;
+
+export namespace sandbox {
+
+namespace application {
+
+/// Check whether the application has been requested to quit.
+///
+SANDBOX_SYMEXPORT
+bool done() noexcept;
+
+/// Request to quit the application.
+///
+SANDBOX_SYMEXPORT
+void quit() noexcept;
+
+///
+///
+SANDBOX_SYMEXPORT
+auto stop_token() noexcept -> std::stop_token;
+
+}  // namespace application
+
+namespace app = application;
+
+}  // namespace sandbox

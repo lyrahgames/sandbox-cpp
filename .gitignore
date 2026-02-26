@@ -22,6 +22,7 @@
 !*.cpp
 !*.ipp
 !*.tpp
+!*.mpp
 
 # Don't ignore source generation files.
 #
